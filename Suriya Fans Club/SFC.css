@@ -1,0 +1,143 @@
+@font-face {
+  font-family: 'Warlock';
+  src: url('fonts/WARLOCK_.TTF') format('truetype');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000 url('bg-1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  width: 90vw;
+  max-width: 380px;
+  aspect-ratio: 3/5;
+  background-color: #000;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 20px crimson;
+}
+
+.card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.profile-pic {
+  position: absolute;
+  top: 24%;
+  left: 5%;
+  width: 28%;
+  aspect-ratio: 11 / 13;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid white;
+  z-index: 2;
+}
+
+.name-hashtag {
+  position: absolute;
+  top: 190px;
+  left: 150px;
+  width: 200px;
+  z-index: 2;
+  color: #fff;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.member-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  font-family: 'Warlock';
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hashtag {
+  font-size: 0.9em;
+  color: gold;
+  margin-top: 5px;
+  font-family: 'Warlock';
+}
+
+.details {
+  position: absolute;
+  top: 47%;
+  left: 5%;
+  width: 90%;
+  color: #fff;
+  font-size: 0.95em;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.label {
+  width: 110px;
+  font-weight: bold;
+  font-family: 'Warlock';
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.colon {
+  width: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.value {
+  flex: 1;
+  word-break: break-word;
+}
+
+.button {
+  margin-top: 15px;
+}
+
+.button button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 6px;
+  background-color: crimson;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card-signature {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  z-index: 3;
+}

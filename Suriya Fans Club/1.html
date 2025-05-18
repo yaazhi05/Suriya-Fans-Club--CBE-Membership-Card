@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Suriya Fans Club Membership</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="1.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"/>
+</head>
+<body>
+  <div class="container">
+    <center>
+      <h2>COIMBATORE SURIYA FANS CLUB</h2>
+      <h3>MEMBERSHIP FORM</h3>
+    </center>
+
+    <form id="membershipForm">
+      <input type="text" name="name" placeholder="Name" required />
+
+      <label>Member ID:</label>
+      <input type="text" name="memberID" id="memberID" readonly />
+
+      <label>Blood Group:</label>
+      <div class="blood-group">
+        <select id="bloodType" required>
+          <option value="">--Select--</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="O">O</option>
+          <option value="A1">A1</option>
+          <option value="A2">A2</option>
+          <option value="AB">AB</option>
+          <option value="A1B">A1B</option>
+          <option value="A2B">A2B</option>
+          <option value="Other">Other</option>
+        </select>
+        <select id="rhFactor" required>
+          <option value="+">+</option>
+          <option value="-">-</option>
+        </select>
+      </div>
+
+      <label>Date of Birth:</label>
+      <input type="date" name="dob" required />
+
+      <input type="text" name="phone" placeholder="Mobile No" required />
+      <textarea name="address" placeholder="Address" required></textarea>
+
+      <label>Upload Photo:</label>
+      <input type="file" id="photoInput" accept="image/*" required />
+
+      <div id="cropContainer" style="display: none; text-align: center;">
+        <img id="imagePreview" style="max-width: 100%; max-height: 300px;" />
+        <br>
+        <button type="button" id="cropBtn">Crop & Save</button>
+      </div>
+
+      <button type="submit">Generate ID Card</button>
+    </form>
+  </div>
+
+  <canvas id="canvas" width="640" height="640" style="display: none;"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script>
+    const memberIDInput = document.getElementById("memberID");
+
+    function getNextMemberID() {
+      let lastID = localStorage.getItem("lastMemberID");
+      let nextNumber = lastID ? parseInt(lastID) + 1 : 1;
+      localStorage.setItem("lastMemberID", nextNumber);
+      return "CBESFC-" + nextNumber.toString().padStart(5, '0');
+    }
+
+    memberIDInput.value = getNextMemberID();
+
+    let cropper;
+    const photoInput = document.getElementById("photoInput");
+    const imagePreview = document.getElementById("imagePreview");
+    const cropContainer = document.getElementById("cropContainer");
+    const cropBtn = document.getElementById("cropBtn");
+    let croppedImageData = null;
+
+    photoInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result;
+          cropContainer.style.display = "block";
+          if (cropper) cropper.destroy();
+          cropper = new Cropper(imagePreview, {
+            aspectRatio: 1,
+            viewMode: 1
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    cropBtn.addEventListener("click", function () {
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const croppedCanvas = cropper.getCroppedCanvas({
+        width: 640,
+        height: 640,
+        imageSmoothingQuality: "high"
+      });
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(croppedCanvas, 0, 0, 640, 640);
+      croppedImageData = canvas.toDataURL("image/jpeg");
+
+      alert("Photo cropped and saved!");
+      cropContainer.style.display = "none";
+    });
+
+    document.getElementById("membershipForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (!croppedImageData) {
+        alert("Please crop and save the photo before submitting.");
+        return;
+      }
+
+      const formData = new FormData(this);
+      const bloodGroup = document.getElementById("bloodType").value + document.getElementById("rhFactor").value;
+
+      const data = {
+        name: formData.get("name"),
+        memberID: formData.get("memberID"),
+        blood: bloodGroup,
+        dob: formData.get("dob"),
+        phone: formData.get("phone"),
+        address: formData.get("address"),
+        photo: croppedImageData
+      };
+
+      sessionStorage.setItem("formData", JSON.stringify(data));
+      window.location.href = "sfc.html";
+    });
+  </script>
+
+  <div class="footer-credit"> Kanya.B © 2025</div>
+  <div class="card-signature">KanyaBasithAli</div>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* Card Container */
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 5.5 / 3.5;
+  background-color: #111;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Background Image */
+.card-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Profile Photo */
+.profile-pic {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  z-index: 2;
+  border: 2px solid #fff;
+}
+
+/* Name and Hashtag */
+.name-hashtag {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  right: 5%;
+  z-index: 2;
+}
+
+.member-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.hashtag {
+  font-size: 0.9rem;
+  color: #ffcc00;
+  margin-top: 4px;
+}
+
+/* Details Section */
+.details {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  right: 5%;
+  z-index: 2;
+  font-size: 0.8rem;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.label {
+  width: 35%;
+  font-weight: bold;
+}
+
+.colon {
+  width: 5%;
+}
+
+.value {
+  width: 60%;
+  word-wrap: break-word;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .member-name {
+    font-size: 1rem;
+  }
+
+  .hashtag {
+    font-size: 0.8rem;
+  }
+
+  .details {
+    font-size: 0.7rem;
+  }
+
+  .profile-pic {
+    width: 28%;
+  }
+}

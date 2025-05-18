@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Membership ID Card</title>
+  <link rel="stylesheet" href="SFC.css">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="card-wrapper">
+    <div class="card">
+      <img src="bg1.jpg" class="card-bg" alt="Card background">
+      <img id="profilePic" class="profile-pic" alt="Profile Photo">
+
+      <div class="name-hashtag">
+        <div id="memberName" class="member-name"></div>
+        <div class="hashtag">#ANBAANA FAN</div>
+      </div>
+
+      <div class="details">
+        <div class="row">
+          <div class="label">MEMBER ID</div>
+          <div class="colon">:</div>
+          <div class="value" id="memberID"></div>
+        </div>
+        <div class="row">
+          <div class="label">BLOOD GROUP</div>
+          <div class="colon">:</div>
+          <div class="value" id="blood"></div>
+        </div>
+        <div class="row">
+          <div class="label">DOB</div>
+          <div class="colon">:</div>
+          <div class="value" id="dob"></div>
+        </div>
+        <div class="row">
+          <div class="label">MOBILE NO</div>
+          <div class="colon">:</div>
+          <div class="value" id="phone"></div>
+        </div>
+        <div class="row">
+          <div class="label">ADDRESS</div>
+          <div class="colon">:</div>
+          <div class="value" id="address"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button">
+      <button id="downloadBtn">Download</button>
+    </div>
+  </div>
+
+  <script>
+    const data = JSON.parse(sessionStorage.getItem("formData")) || {
+      photo: "919dee2a-68a2-49d1-a9c3-f4633aa7d31d.png",
+      name: "ERRF",
+      memberID: "CBESFC-00033",
+      blood: "B+",
+      dob: "2025-05-18",
+      phone: "0987654322",
+      address: "edwdcdcfc"
+    };
+
+    document.getElementById("profilePic").src = data.photo;
+    document.getElementById("memberName").textContent = data.name.toUpperCase();
+    document.getElementById("memberID").textContent = data.memberID;
+    document.getElementById("blood").textContent = data.blood;
+    document.getElementById("dob").textContent = data.dob;
+    document.getElementById("phone").textContent = data.phone;
+    document.getElementById("address").textContent = data.address;
+
+    document.getElementById("downloadBtn").addEventListener("click", function () {
+      const card = document.querySelector(".card");
+      html2canvas(card).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "membership_card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    });
+  </script>
+  <div class="card-signature">KanyaBasithAli</div>
+</body>
+</html>
